@@ -58,7 +58,6 @@ Essa complexidade é obtida pela redução do número de multiplicações recurs
 
 A complexidade de espaço é:
 
-```text
 O(log n)
 
 
@@ -72,9 +71,8 @@ https://www.geeksforgeeks.org/dsa/karatsuba-algorithm-for-fast-multiplication-us
 ---
 A imagem `accepted.png` apresenta a submissão aceita na plataforma online.
 ## Evidência de Execução
-
+![Evidencia de Aceitacai](./accepted.png)
 
 O problema utilizado neste trabalho foi obtido na plataforma GeeksForGeeks.
 
 O consumo de memória é decorrente principalmente da pilha de chamadas recursivas utilizada durante a execução do algoritmo.
-
