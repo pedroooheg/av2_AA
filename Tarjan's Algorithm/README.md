@@ -77,8 +77,5 @@ O problema utilizado neste trabalho foi obtido na plataforma GeeksForGeeks.
 O consumo de memória é decorrente dos vetores auxiliares utilizados pelo algoritmo e da pilha necessária para armazenar temporariamente os vértices durante a busca.
 ```
 
-```text
-O(V)
-A complexidade de espaço é:
 
 
