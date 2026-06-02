@@ -64,7 +64,8 @@ https://www.geeksforgeeks.org/dsa/tarjan-algorithm-find-strongly-connected-compo
 ## Evidência de Execução
 
 A imagem `accepted.png` apresenta a submissão aceita na plataforma online.---
-(./accepted.png)
+
+![Evidencia de Aceitacai](./accepted.png)
 
 **Link do problema:**
 O problema utilizado neste trabalho foi obtido na plataforma GeeksForGeeks.
