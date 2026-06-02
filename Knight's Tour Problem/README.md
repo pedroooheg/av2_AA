@@ -63,13 +63,12 @@ O(n²)
 
 O espaço é utilizado para armazenar o tabuleiro contendo a ordem de visitação das casas.
 
-```text
-
 ---
 
 **Link do problema:**
 ## Evidência de Execução
 A imagem `accepted.png` apresenta a submissão aceita na plataforma online.
+![Evidencia de Aceitacai](./accepted.png)
 ---
 
 
@@ -80,5 +79,5 @@ O problema utilizado neste trabalho foi obtido na plataforma GeeksForGeeks.
 ## Problema Original
 
 O(n²)
-```
+
 Além disso, existe o custo da pilha de chamadas recursivas, que pode atingir profundidade máxima de:
