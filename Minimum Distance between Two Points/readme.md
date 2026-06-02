@@ -1,59 +1,46 @@
-# Minimum Distance Between Two Points
+# Problema 1: Menor Distância Entre Dois Pontos (Minimum Distance Between Two Points)
 
-## Paradigma
-Divisão e Conquista
+## Informações Gerais
+* **Link para o problema original:** [GeeksforGeeks - Minimum Distance Between Two Points](https://www.geeksforgeeks.org/problems/minimum-distance-between-two-points/1)
+* **Técnica Algorítmica Utilizada:** Divisão e Conquista (Divide and Conquer)
 
-## Descrição
-O problema consiste em encontrar a menor distância euclidiana entre dois pontos distintos em um plano bidimensional.
+---
 
-Cada ponto é representado por suas coordenadas (x, y), e a distância entre dois pontos é calculada pela fórmula:
+## Descrição do Problema
+O problema consiste em encontrar a menor distância euclidiana entre dois pontos distintos em um plano bidimensional. Cada ponto é fornecido com suas coordenadas $(x, y)$, e a distância entre dois pontos $A(x_1, y_1)$ e $B(x_2, y_2)$ é calculada pela fórmula clássica da geometria analítica:
 
-d = √((x₁ - x₂)² + (y₁ - y₂)²)
+$$d = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$$
 
-O objetivo é determinar o menor valor dessa distância entre todos os pares de pontos fornecidos.
+O objetivo principal é determinar o menor valor absoluto dessa distância considerando todos os pares de pontos possíveis no conjunto de entrada.
 
-## Estratégia da Solução
+---
 
-Foi utilizada a técnica de Divisão e Conquista (Divide and Conquer).
+## Explicação da Solução
+Para resolver o problema de forma eficiente, aplicamos o paradigma de **Divisão e Conquista**. A estratégia funciona seguindo os passos abaixo:
 
-Inicialmente, os pontos são ordenados pela coordenada X. Em seguida, o conjunto é dividido recursivamente em duas metades.
+1. **Ordenação Inicial:** Ordenamos todos os pontos com base na coordenada $X$. Se dois pontos possuírem a mesma coordenada $X$, eles são ordenados pela coordenada $Y$. Essa ordenação serve para facilitar a divisão geométrica do plano.
+2. **Divisão e Recursão:** Dividimos o conjunto de pontos ao meio usando uma linha vertical imaginária (ponto médio). Recursivamente, calculamos a menor distância na metade esquerda ($d_L$) e na metade direita ($d_R$). Definimos a menor distância encontrada até o momento como $d = \min(d_L, d_R)$.
+3. **Combinação (A Faixa Central):** É possível que os dois pontos mais próximos do plano estejam separados pela linha de divisão (um do lado esquerdo e outro do lado direito). Para verificar isso, filtramos todos os pontos cuja distância horizontal até a linha média seja menor que $d$. 
+4. **Otimização da Faixa:** Ordenamos esses pontos filtrados pela coordenada $Y$. Para cada ponto nesta faixa, basta compará-lo com os pontos subsequentes cujo delta $Y$ seja menor que $d$. Geometricamente, prova-se que não é necessário checar mais do que 7 vizinhos para cada ponto nessa região, mantendo essa etapa linear.
 
-Para cada metade é calculada a menor distância local. Após isso, é realizada uma etapa de combinação, onde são analisados os pontos próximos à linha divisória para verificar se existe um par de pontos pertencentes a lados diferentes cuja distância seja menor que as encontradas anteriormente.
+Esta abordagem evita a comparação de todos os pares de pontos, o que seria inviável para grandes volumes de dados.
 
-Essa abordagem reduz significativamente a quantidade de comparações necessárias quando comparada à solução de força bruta.
+---
 
-## Complexidade
+## Análise de Complexidade
 
-### Tempo
+### Complexidade de Tempo
+* **Ordenação Inicial:** A ordenação prévia do vetor de pontos consome $O(n \log n)$.
+* **Etapa Recursiva e Combinação:** A divisão divide o problema em $2T(n/2)$. Na etapa de combinação, o algoritmo realiza uma filtragem linear $O(n)$, mas executa um `sort` interno na região da faixa central que custa $O(n \log n)$.
+* **Recorrência do Algoritmo:** $$T(n) = 2T(n/2) + O(n \log n)$$
+* **Complexidade Total:** Pelo Teorema Mestre, a complexidade final da solução é **$O(n \log^2 n)$**. É uma melhoria drástica comparada à abordagem de força bruta, que exigiria **$O(n^2)$** comparações.
 
-A ordenação inicial dos pontos possui custo O(n log n).
+### Complexidade de Espaço
+* **Complexidade Total:** **$O(n)$**. O algoritmo utiliza vetores auxiliares (`faixa`) para processar os pontos que estão próximos à linha divisória em cada nível da recursão, além da pilha de chamadas do sistema.
 
-A estratégia de divisão e conquista resolve recursivamente dois subproblemas de tamanho n/2 e realiza uma etapa de combinação eficiente.
+---
 
-A recorrência do algoritmo é:
+## Evidência de Execução Correta
+A imagem abaixo comprova a submissão e aceitação do código na plataforma de juiz online:
 
-T(n) = 2T(n/2) + O(n log n)
-
-Resultando em complexidade aproximada de:
-
-O(n log² n)
-
-Enquanto a abordagem ingênua exigiria comparar todos os pares de pontos, resultando em:
-
-O(n²)
-
-### Espaço
-
-O algoritmo utiliza estruturas auxiliares para armazenar subconjuntos de pontos durante as chamadas recursivas.
-
-Complexidade de espaço:
-
-O(n)
-
-## Problema Original
-
-O problema utilizado neste trabalho foi obtido na plataforma GeeksForGeeks.
-
-Link do problema:
-
-https://www.geeksforgeeks.org/dsa/closest-pair-of-points-using-divide-and-conquer-algorithm/
+![Evidência de Aceitação](./accepted.png)

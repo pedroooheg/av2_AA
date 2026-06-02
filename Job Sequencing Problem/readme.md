@@ -1,73 +1,41 @@
-# Job Sequencing Problem
+# Problema 3: Escalonamento de Tarefas (Job Sequencing Problem)
 
-## Paradigma
+## Informações Gerais
+* **Link para o problema original:** [GeeksforGeeks - Job Sequencing Problem](https://www.geeksforgeeks.org/problems/job-sequencing-problem-1587115621/1)
+* **Técnica Algorítmica Utilizada:** Algoritmo Guloso (Greedy Algorithm) otimizado com Disjoint Set Union (DSU / Union-Find)
 
-Algoritmo Guloso
+---
 
-## Descrição
+## Descrição do Problema
+O problema consiste em selecionar e agendar uma sequência de tarefas unidimensionais de modo a maximizar o lucro total obtido. 
 
-O problema consiste em selecionar e organizar tarefas
-de forma que o lucro total obtido seja máximo.
+Cada tarefa possui um prazo limite (*deadline*), um valor de lucro associado e uma duração fixa de exatamente $1$ unidade de tempo. Sabendo que apenas uma única tarefa pode ser executada por vez e que ela só gera lucro se for concluída antes ou exatamente no seu tempo limite, o objetivo é encontrar a escala ideal que resulte no maior ganho financeiro possível e no número máximo de tarefas agendadas.
 
-Cada tarefa possui:
-- um prazo limite (deadline);
-- um valor de lucro;
-- duração fixa de uma unidade de tempo.
+---
 
-O objetivo é executar a maior quantidade possível de tarefas
-lucrativas sem ultrapassar seus respectivos deadlines.
+## Explicação da Solução
+A estratégia adota uma abordagem **Gulosa** clássica: para maximizar o lucro, devemos dar prioridade absoluta às tarefas que pagam mais. No entanto, para evitar colisões de horários de forma eficiente, a solução utiliza a estrutura de dados **Disjoint Set Union (DSU)**:
 
-## Estratégia da Solução
+1. **Ordenação:** Inicialmente, todas as tarefas são ordenadas em ordem decrescente com base no seu lucro. Caso haja empate, o critério guloso mantém a prioridade do maior ganho.
+2. **Mapeamento do Tempo com DSU:** Criamos um conjunto disjunto onde cada elemento representa um *slot* de tempo disponível (de $0$ até o maior *deadline* encontrado). Inicialmente, cada slot aponta para si mesmo (`parent[i] = i`), indicando que está livre.
+3. **Alocação Tardia (Estratégia Gulosa):** Para cada tarefa processada, tentamos alocá-la o mais tarde possível (no limite do seu *deadline*). Isso preserva os horários iniciais para tarefas que possuem prazos mais restritos. Usamos a operação `encontrar(limite)` para descobrir qual é o último slot de tempo disponível menor ou igual ao prazo da tarefa.
+4. **Atualização dos Conjuntos:** Se o slot retornado for maior que $0$, a tarefa é agendada com sucesso. O lucro e o contador são incrementados. Em seguida, realizamos a união apontando esse slot para o slot imediatamente anterior (`disponivel - 1`). Assim, qualquer tarefa futura que busque este mesmo horário será redirecionada automaticamente para o próximo espaço vago à esquerda em tempo quase constante.
 
-Foi utilizada uma abordagem gulosa (Greedy Algorithm).
+---
 
-Inicialmente, os trabalhos são ordenados em ordem decrescente
-de lucro, priorizando as tarefas mais lucrativas.
-
-Para melhorar o desempenho do algoritmo, foi utilizada a
-estrutura Disjoint Set Union (DSU), também conhecida como
-Union-Find, permitindo encontrar rapidamente horários livres
-para alocação das tarefas.
-
-Cada tarefa é inserida no último horário disponível antes
-do seu deadline, garantindo melhor aproveitamento do tempo
-e maximização do lucro total.
-
-## Complexidade
+## Análise de Complexidade
 
 ### Complexidade de Tempo
-
-A complexidade do algoritmo é aproximadamente:
-
-O(n log n)
-
-O custo principal está relacionado à ordenação inicial
-dos trabalhos. As operações de busca e união realizadas
-pela estrutura DSU possuem custo praticamente constante.
-
-Essa abordagem é significativamente mais eficiente do que
-a solução gulosa tradicional O(n²), evitando Time Limit Exceeded
-em grandes conjuntos de dados.
+* **Ordenação Inicial:** O custo para ordenar o vetor de tarefas com base no lucro é de $O(n \log n)$, onde $n$ é o número total de tarefas.
+* **Processamento e Consultas DSU:** Para cada uma das $n$ tarefas, realizamos chamadas à função `encontrar`. Graças à otimização de **compressão de caminhos** (*path compression*) implementada na recursão do DSU, cada operação de busca e união roda em tempo amortizado de $O(\alpha(m))$, onde $\alpha$ é a função inversa de Ackermann (que cresce tão devagar que pode ser considerada constante, ou seja, $O(1)$ na prática).
+* **Complexidade Total:** **$O(n \log n)$**. O gargalo do algoritmo reside unicamente na ordenação inicial. Essa otimização com DSU é significativamente mais eficiente do que a abordagem gulosa tradicional com vetores booleanos ordinários, que exigiria buscas lineares resultando em $O(n^2)$ e causaria *Time Limit Exceeded* (TLE).
 
 ### Complexidade de Espaço
+* **Complexidade Total:** **$O(n + D)$**, onde $n$ é o número de tarefas armazenadas no vetor pareado e $D$ é o valor do maior *deadline* presente na entrada. Esse espaço é utilizado para alocar o vetor `parent` do DSU e as estruturas auxiliares de manipulação dos dados.
 
-A complexidade de espaço é:
+---
 
-O(n)
+## Evidência de Execução Correta
+A imagem abaixo comprova a submissão e aceitação do código na plataforma de juiz online:
 
-O algoritmo utiliza estruturas auxiliares para armazenar
-os horários disponíveis e o conjunto DSU utilizado
-na organização das tarefas.
-
-## Problema Original
-
-O problema utilizado neste trabalho foi obtido na plataforma
-GeeksForGeeks.
-
-Link do problema:
-https://www.geeksforgeeks.org/job-sequencing-problem/
-
-## Evidência de Execução
-
-A imagem `accepted.png` apresenta a submissão aceita
-na plataforma online.
+![Evidência de Aceitação](./accepted.png)
