@@ -65,14 +65,12 @@ O espaço é utilizado para armazenar o tabuleiro contendo a ordem de visitaçã
 
 ---
 
-**Link do problema:**
 ## Evidência de Execução
 A imagem `accepted.png` apresenta a submissão aceita na plataforma online.
 ![Evidencia de Aceitacai](./accepted.png)
 ---
 
-
-
+**Link do problema:**
 https://www.geeksforgeeks.org/dsa/the-knights-tour-problem/
 
 O problema utilizado neste trabalho foi obtido na plataforma GeeksForGeeks.
